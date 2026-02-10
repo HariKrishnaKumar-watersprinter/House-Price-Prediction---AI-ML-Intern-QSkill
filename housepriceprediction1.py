@@ -7,7 +7,7 @@ from  lightgbm import LGBMRegressor
 from imblearn.pipeline import Pipeline
 from sklearn.metrics import r2_score
 
-DATA_PATH = r'https://github.com/HariKrishnaKumar-watersprinter/House-Price-Prediction---AI-ML-Intern-QSkill/blob/main/Housing_Price_Data.csv'
+DATA_PATH = "https://raw.githubusercontent.com/HariKrishnaKumar-watersprinter/House-Price-Prediction---AI-ML-Intern-QSkill/main/Housing_Price_Data.csv"
 @st.cache_resource
 def train_model():
     df=pd.read_csv(DATA_PATH,on_bad_lines='skip',encoding='utf-8')
@@ -188,5 +188,6 @@ if st.button("🔍Predict Price", type="primary", use_container_width=True):
     with st.expander("Input values used for prediction"):
 
         st.json(Data1.to_dict(orient="records")[0])
+
 
 
