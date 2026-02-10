@@ -11,7 +11,7 @@ DATA_PATH = r'https://github.com/HariKrishnaKumar-watersprinter/House-Price-Pred
 @st.cache_resource
 def train_model():
     df=pd.read_csv(DATA_PATH,on_bad_lines='skip',encoding='utf-8')
-    binary_cols = ['Main road', 'guestroom', 'basement', 'Hot water heating', 'Airconditioning', 'Preferred area']
+    binary_cols = ['mainroad', 'guestroom', 'basement', 'Hotwaterheating', 'Airconditioning', 'Preferred area']
     for col in binary_cols:
         if df[col].dtype == 'object':
             df[col] = df[col].map({'yes': 1, 'no': 0})
@@ -52,7 +52,7 @@ def train_model():
     df_fe['total_rooms']      = df_fe['bedrooms'] + df_fe['bathrooms']
     df_fe['bed_bath_ratio']   = df_fe['bedrooms'] / df_fe['bathrooms'].clip(lower=1)
     df_fe['bath_per_bedroom'] = df_fe['bathrooms'] / df_fe['bedrooms'].clip(lower=1)
-    amenity_cols = ['Main road', 'guestroom', 'basement', 'Hot water heating', 
+    amenity_cols = ['mainroad', 'guestroom', 'basement', 'Hotwaterheating', 
                 'Airconditioning', 'Preferred area']
     df_fe['amenity_score'] = df_fe[amenity_cols].sum(axis=1)
     df_fe['luxury_score'] = (
@@ -60,8 +60,8 @@ def train_model():
      df_fe['Preferred area']  +
      df_fe['guestroom']      +
      df_fe['basement']         +
-     df_fe['Hot water heating']  +
-     df_fe['Main road'])
+     df_fe['Hotwaterheating']  +
+     df_fe['mainroad'])
     df_fe['stories_parking'] = df_fe['stories'] * df_fe['parking']
     df_fe['has_parking']     = (df_fe['parking'] > 0).astype(int)
     df_fe['high_parking']    = (df_fe['parking'] >= 2).astype(int)
@@ -108,8 +108,8 @@ with col2:
     Furnishingstatus= st.selectbox("Furnishing Status", options=['Unfurnished', 'Semi-furnished', 'Furnished'])
 
 Input_data = pd.DataFrame([[Area, Bedrooms, Bathrooms, Stories, Mainroad, Guestroom, Basement, Hotwaterheating, Airconditioning, Parking, Preferredarea, Furnishingstatus]], 
-                          columns=['area', 'bedrooms', 'bathrooms', 'stories', 'Main road', 'guestroom', 'basement', 'Hot water heating', 'Airconditioning', 'parking', 'Preferred area', 'Furnishing status'])
-binary_cols1= ['Main road', 'guestroom', 'basement', 'Hot water heating', 'Airconditioning', 'Preferred area']
+                          columns=['area', 'bedrooms', 'bathrooms', 'stories', 'mainroad', 'guestroom', 'basement', 'Hotwaterheating', 'Airconditioning', 'parking', 'Preferred area', 'Furnishing status'])
+binary_cols1= ['mainroad', 'guestroom', 'basement', 'Hotwaterheating', 'Airconditioning', 'Preferred area']
 for col in binary_cols1:
     if Input_data[col].dtype == 'object':
         Input_data[col] = Input_data[col].map({'Yes': 1, 'No': 0})
@@ -134,7 +134,7 @@ Data1['large_house'] = (Data1['area'] > 3000).astype(int)
 Data1['total_rooms'] = Data1['bedrooms'] + Data1['bathrooms']
 Data1['bed_bath_ratio'] = Data1['bedrooms'] / Data1['bathrooms'].clip(lower=1)
 Data1['bath_per_bedroom'] = Data1['bathrooms'] / Data1['bedrooms'].clip(lower=1)
-amenity_cols = ['Main road', 'guestroom', 'basement', 'Hot water heating', 
+amenity_cols = ['mainroad', 'guestroom', 'basement', 'Hotwaterheating', 
                 'Airconditioning', 'Preferred area']
 Data1['amenity_score'] = Data1[amenity_cols].sum(axis=1)
 
@@ -188,4 +188,5 @@ if st.button("🔍Predict Price", type="primary", use_container_width=True):
     with st.expander("Input values used for prediction"):
 
         st.json(Data1.to_dict(orient="records")[0])
+
 
