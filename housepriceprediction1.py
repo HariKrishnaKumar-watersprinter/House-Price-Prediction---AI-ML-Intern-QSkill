@@ -10,7 +10,7 @@ from sklearn.metrics import r2_score
 DATA_PATH = r'https://github.com/HariKrishnaKumar-watersprinter/House-Price-Prediction---AI-ML-Intern-QSkill/blob/main/Housing_Price_Data.csv'
 @st.cache_resource
 def train_model():
-    df=pd.read_csv(DATA_PATH)
+    df=pd.read_csv(DATA_PATH,on_bad_lines='skip',encoding='utf-8')
     binary_cols = ['Main road', 'guestroom', 'basement', 'Hot water heating', 'Airconditioning', 'Preferred area']
     for col in binary_cols:
         if df[col].dtype == 'object':
@@ -188,3 +188,4 @@ if st.button("🔍Predict Price", type="primary", use_container_width=True):
     with st.expander("Input values used for prediction"):
 
         st.json(Data1.to_dict(orient="records")[0])
+
