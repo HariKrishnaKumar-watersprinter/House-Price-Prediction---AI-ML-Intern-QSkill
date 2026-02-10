@@ -144,7 +144,7 @@ Data1['luxury_score'] = (
     Data1['guestroom']      +
     Data1['basement']         +
     Data1['Hotwaterheating']  +
-    Data1['Main road'] )
+    Data1['mainroad'] )
 
 Data1['stories_parking'] = Data1['stories'] * Data1['parking']
 Data1['has_parking']     = (Data1['parking'] > 0).astype(int)
@@ -188,6 +188,7 @@ if st.button("🔍Predict Price", type="primary", use_container_width=True):
     with st.expander("Input values used for prediction"):
 
         st.json(Data1.to_dict(orient="records")[0])
+
 
 
 
